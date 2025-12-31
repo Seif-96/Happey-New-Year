@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Happy New Year Radwa 🎊</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
+        font-family: Arial, sans-serif;
+        color: white;
+      }
+
+      button {
+        padding: 18px 40px;
+        font-size: 22px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        background: gold;
+        color: black;
+        transition: 0.3s;
+        z-index: 10;
+      }
+
+      button:hover {
+        transform: scale(1.1);
+      }
+
+      .message {
+        font-size: 36px;
+        text-align: center;
+        display: none;
+        z-index: 10;
+        line-height: 1.4;
+      }
+
+      canvas {
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="btn">اضغط</button>
+
+    <div class="message" id="msg"></div>
+
+    <!-- 🎵 صوت احتفال -->
+    <audio id="sound">
+      <source
+        src="https://assets.mixkit.co/sfx/preview/mixkit-happy-new-year-party-1733.mp3"
+        type="audio/mpeg"
+      />
+    </audio>
+
+    <!-- 🎆 ألعاب نارية -->
+    <canvas id="canvas"></canvas>
+
+    <script>
+      const btn = document.getElementById("btn");
+      const msg = document.getElementById("msg");
+      const sound = document.getElementById("sound");
+
+      const text = "🎊 Happy New Year Radwa 🎉\nMy Best Friend 💙";
+      let index = 0;
+
+      btn.addEventListener("click", () => {
+        btn.style.display = "none";
+        msg.style.display = "block";
+        sound.play();
+        typeWriter();
+        startFireworks();
+      });
+
+      function typeWriter() {
+        if (index < text.length) {
+          msg.innerHTML += text[index] === "\n" ? "<br>" : text[index];
+          index++;
+          setTimeout(typeWriter, 100);
+        }
+      }
+
+      // 🎆 Fireworks Logic
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      let particles = [];
+
+      function startFireworks() {
+        setInterval(createFirework, 500);
+        animate();
+      }
+
+      function createFirework() {
+        const x = Math.random() * canvas.width;
+        const y = (Math.random() * canvas.height) / 2;
+
+        for (let i = 0; i < 60; i++) {
+          particles.push({
+            x,
+            y,
+            dx: (Math.random() - 0.5) * 6,
+            dy: (Math.random() - 0.5) * 6,
+            life: 100,
+            color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+          });
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        particles.forEach((p, i) => {
+          p.x += p.dx;
+          p.y += p.dy;
+          p.life--;
+
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
+          ctx.fill();
+
+          if (p.life <= 0) {
+            particles.splice(i, 1);
+          }
+        });
+        requestAnimationFrame(animate);
+      }
+    </script>
+  </body>
+</html>
