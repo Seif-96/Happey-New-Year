@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Happy Nice Day Radwa 🌸</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #1d2b64, #f8cdda);
+        font-family: Arial, sans-serif;
+        color: white;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 500px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      button {
+        padding: 14px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        background: #ffcc70;
+        color: #000;
+        transition: 0.3s;
+        margin: 10px;
+      }
+
+      button:hover {
+        transform: scale(1.05);
+      }
+
+      .message {
+        font-size: clamp(22px, 5vw, 32px);
+        display: none;
+        line-height: 1.6;
+        margin-bottom: 10px;
+        animation: fadeIn 1s ease;
+      }
+
+      .actions {
+        display: none;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      /* ⭐ التاريخ المميز */
+      .date-view {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        animation: zoomFade 1.2s ease;
+      }
+
+      .date-big {
+        font-size: clamp(32px, 8vw, 50px);
+        font-weight: bold;
+        letter-spacing: 3px;
+        margin-bottom: 20px;
+        color: #fff;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+      }
+
+      img {
+        display: none;
+        width: 100%;
+        max-width: 330px;
+        border-radius: 25px;
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+        animation: zoomIn 1s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes zoomFade {
+        from {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes zoomIn {
+        from {
+          opacity: 0;
+          transform: scale(0.7);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <!-- زرار البداية -->
+      <button id="startBtn">🌸 Click 🌸</button>
+
+      <!-- الرسالة -->
+      <div class="message" id="msg"></div>
+
+      <!-- الأزرار -->
+      <div class="actions" id="actions">
+        <button id="dateBtn">📅 Show Date</button>
+        <button id="imgBtn">❤️ Show Image ❤️</button>
+      </div>
+
+      <!-- شاشة التاريخ -->
+      <div class="date-view" id="dateView">
+        <div class="date-big">2007 / 7 / 10</div>
+        <button id="imgFromDate">❤️ See Image ❤️</button>
+      </div>
+
+      <!-- الصورة -->
+      <img
+        src="WhatsApp Image 2026-01-06 at 8.03.18 PM.jpeg"
+        alt="Radwa"
+        id="image"
+      />
+
+      <audio id="sound" preload="auto">
+        <source
+          src="https://assets.mixkit.co/sfx/preview/mixkit-happy-new-year-party-1733.mp3"
+          type="audio/mpeg"
+        />
+      </audio>
+    </div>
+
+    <script>
+      const startBtn = document.getElementById("startBtn");
+      const msg = document.getElementById("msg");
+      const actions = document.getElementById("actions");
+      const dateBtn = document.getElementById("dateBtn");
+      const imgBtn = document.getElementById("imgBtn");
+      const dateView = document.getElementById("dateView");
+      const imgFromDate = document.getElementById("imgFromDate");
+      const image = document.getElementById("image");
+      const sound = document.getElementById("sound");
+
+      const text = "🌸 Happy Nice Day Radwa 🌸\nMy Love ❤️";
+      let index = 0;
+
+      startBtn.addEventListener("click", () => {
+        startBtn.style.display = "none";
+        msg.style.display = "block";
+
+        sound.currentTime = 0;
+        sound.play().catch(() => {});
+
+        typeWriter();
+
+        setTimeout(() => {
+          actions.style.display = "flex";
+        }, 1800);
+      });
+
+      dateBtn.addEventListener("click", () => {
+        msg.style.display = "none";
+        actions.style.display = "none";
+        dateView.style.display = "flex";
+      });
+
+      imgBtn.addEventListener("click", () => {
+        msg.style.display = "none";
+        actions.style.display = "none";
+        image.style.display = "block";
+      });
+
+      imgFromDate.addEventListener("click", () => {
+        dateView.style.display = "none";
+        image.style.display = "block";
+      });
+
+      function typeWriter() {
+        if (index < text.length) {
+          msg.innerHTML += text[index] === "\n" ? "<br>" : text[index];
+          index++;
+          setTimeout(typeWriter, 80);
+        }
+      }
+    </script>
+  </body>
+</html>
