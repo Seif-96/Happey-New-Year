@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Happy Nice Day Radwa 🌸</title>
+    <title>Happy Nice Day Rody 🌸</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <style>
@@ -61,7 +61,6 @@
         justify-content: center;
       }
 
-      /* ⭐ التاريخ المميز */
       .date-view {
         display: none;
         flex-direction: column;
@@ -74,7 +73,6 @@
         font-weight: bold;
         letter-spacing: 3px;
         margin-bottom: 20px;
-        color: #fff;
         text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
       }
 
@@ -124,31 +122,32 @@
 
   <body>
     <div class="container">
-      <!-- زرار البداية -->
+      <!-- Start Button -->
       <button id="startBtn">🌸 Click 🌸</button>
 
-      <!-- الرسالة -->
+      <!-- Message -->
       <div class="message" id="msg"></div>
 
-      <!-- الأزرار -->
+      <!-- Action Buttons -->
       <div class="actions" id="actions">
         <button id="dateBtn">📅 Show Date</button>
         <button id="imgBtn">❤️ Show Image ❤️</button>
+        <button id="positiveBtn">Message</button>
       </div>
 
-      <!-- شاشة التاريخ -->
+      <!-- Date View -->
       <div class="date-view" id="dateView">
         <div class="date-big">2007 / 7 / 10</div>
         <button id="imgFromDate">❤️ See Image ❤️</button>
       </div>
 
-      <!-- الصورة -->
-      <img
-        src="WhatsApp Image 2026-01-06 at 8.03.18 PM.jpeg"
-        alt="Radwa"
-        id="image"
-      />
+      <!-- Image -->
+      <img src="WhatsApp Image 2026-01-06 at 8.03.18 PM.jpeg" alt="Rody" id="image" />
 
+      <!-- Back Button -->
+      <button id="backBtn" style="display: none">🔙 Back</button>
+
+      <!-- Sound -->
       <audio id="sound" preload="auto">
         <source
           src="https://assets.mixkit.co/sfx/preview/mixkit-happy-new-year-party-1733.mp3"
@@ -158,21 +157,67 @@
     </div>
 
     <script>
-      const startBtn = document.getElementById("startBtn");
-      const msg = document.getElementById("msg");
-      const actions = document.getElementById("actions");
-      const dateBtn = document.getElementById("dateBtn");
-      const imgBtn = document.getElementById("imgBtn");
-      const dateView = document.getElementById("dateView");
-      const imgFromDate = document.getElementById("imgFromDate");
-      const image = document.getElementById("image");
-      const sound = document.getElementById("sound");
-      const text = "🌸 Happy Nice Day Rody 🌸\n💖 My Love 💖";
+      // ===== DOM Elements =====
+      const startBtn = document.getElementById('startBtn');
+      const msg = document.getElementById('msg');
+      const actions = document.getElementById('actions');
+      const dateBtn = document.getElementById('dateBtn');
+      const imgBtn = document.getElementById('imgBtn');
+      const positiveBtn = document.getElementById('positiveBtn');
+      const dateView = document.getElementById('dateView');
+      const imgFromDate = document.getElementById('imgFromDate');
+      const image = document.getElementById('image');
+      const backBtn = document.getElementById('backBtn');
+      const sound = document.getElementById('sound');
+
+      // Typewriter text
+      const text = '🌸 Happy Nice Day Rody 🌸\n💖 M B F 💖';
       let index = 0;
 
-      startBtn.addEventListener("click", () => {
-        startBtn.style.display = "none";
-        msg.style.display = "block";
+      // Positive messages
+      const positiveMessages = [
+        '🌸 You are stronger than you think',
+        '💖 You are deeply loved',
+        '✨ Every day you shine brighter',
+        '🌈 Beautiful things are coming',
+        '💫 You make the world better',
+        '🌷 Your smile changes everything',
+        '🌸 إنتِ شخص جميل وقيمتك كبيرة',
+        '💖 وجودك في الحياة فرق كبير',
+        '✨ بكرة أحلى بإذن الله',
+        '🌈 ربنا شايلك الخير كله',
+        '💫 إنتِ أقوى مما تتخيلي',
+        '🌷 ابتسامتك بتنور الدنيا',
+        '🤍 إنتِ محبوبة أكتر ما تتوقعي',
+        '🌞 كل يوم جديد فرصة حلوة ليكِ',
+        '💐 قلبك نضيف وده باين فيكِ',
+        '⭐ ربنا هيحققلك اللي بتتمنيه',
+        '🌷 إنتِ سبب ابتسامة ناس كتير من غير ما تحسي',
+        '🤍 قلبك طيب والدنيا محتاجة ناس زيك',
+        '✨ ربنا دايمًا بيختار لك الأحسن حتى لو مش باين دلوقتي',
+        '💖 وجودك نعمة حقيقية في حياة اللي حواليك',
+        '🌈 الأيام الجاية هتفرحك أكتر مما تتخيلي',
+        '🌸 كل مرة تتعبي فيها ربنا بيجبر بخاطرك',
+        '💫 إنتِ مميزة بطريقتك ومفيش حد شبهك',
+        '🌞 مهما كان اليوم تقيل، إنتِ أقوى منه',
+        '⭐ ربنا كاتب لك حاجة حلوة جاية في الطريق',
+        '💐 إنتِ جميلة من جواك قبل أي حاجة',
+        '🌸 You are enough just the way you are',
+        '✨ Your presence makes everything brighter',
+        '💖 You are deeply appreciated and loved',
+        '🌈 Better days are on their way to you',
+        '💫 You have a beautiful soul',
+        '🌷 Your kindness never goes unnoticed',
+        '🌞 You bring light wherever you go',
+        '⭐ You are capable of amazing things',
+        '💐 You matter more than you know',
+        '🤍 You are doing better than you think',
+      ];
+
+      // ===== Start =====
+      startBtn.addEventListener('click', () => {
+        startBtn.style.display = 'none';
+        msg.style.display = 'block';
 
         sound.currentTime = 0;
         sound.play().catch(() => {});
@@ -180,30 +225,74 @@
         typeWriter();
 
         setTimeout(() => {
-          actions.style.display = "flex";
+          actions.style.display = 'flex';
         }, 1800);
       });
 
-      dateBtn.addEventListener("click", () => {
-        msg.style.display = "none";
-        actions.style.display = "none";
-        dateView.style.display = "flex";
+      // ===== Show Date =====
+      dateBtn.addEventListener('click', () => {
+        hideAll();
+        dateView.style.display = 'flex';
+        backBtn.style.display = 'inline-block';
       });
 
-      imgBtn.addEventListener("click", () => {
-        msg.style.display = "none";
-        actions.style.display = "none";
-        image.style.display = "block";
+      // ===== Show Image =====
+      imgBtn.addEventListener('click', () => {
+        hideAll();
+        image.style.display = 'block';
+        backBtn.style.display = 'inline-block';
       });
 
-      imgFromDate.addEventListener("click", () => {
-        dateView.style.display = "none";
-        image.style.display = "block";
+      // ===== Positive Message =====
+      positiveBtn.addEventListener('click', () => {
+        hideAll();
+
+        const randomMessage = positiveMessages[Math.floor(Math.random() * positiveMessages.length)];
+
+        msg.innerHTML = randomMessage;
+        msg.style.display = 'block';
+        backBtn.style.display = 'inline-block';
       });
 
+      // ===== From Date to Image =====
+      imgFromDate.addEventListener('click', () => {
+        hideAll();
+        image.style.display = 'block';
+        backBtn.style.display = 'inline-block';
+      });
+
+      // ===== Back to Start =====
+      backBtn.addEventListener('click', () => {
+        // إخفاء كل الشاشات
+        msg.style.display = 'none';
+        dateView.style.display = 'none';
+        image.style.display = 'none';
+
+        // إعادة تعيين الرسالة
+        msg.innerHTML = '';
+        index = 0;
+        // إظهار الرسالة من جديد
+        msg.style.display = 'block';
+        typeWriter();
+        // إظهار الأزرار بعد الكتابة
+        setTimeout(() => {
+          actions.style.display = 'flex';
+        }, 1000);
+        backBtn.style.display = 'none';
+      });
+
+      // ===== Helpers =====
+      function hideAll() {
+        msg.style.display = 'none';
+        actions.style.display = 'none';
+        dateView.style.display = 'none';
+        image.style.display = 'none';
+      }
+
+      // ===== Typewriter Effect =====
       function typeWriter() {
         if (index < text.length) {
-          msg.innerHTML += text[index] === "\n" ? "<br>" : text[index];
+          msg.innerHTML += text[index] === '\n' ? '<br>' : text[index];
           index++;
           setTimeout(typeWriter, 80);
         }
